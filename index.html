@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Jacob - For you</title>
 
+<!-- Favicon (optional) -->
+<link rel="icon" href="https://github.githubassets.com/favicons/favicon-dark.png">
+
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -106,7 +109,7 @@ body::before {
 .footer-text::after { content:"”"; margin-left:6px; font-size:28px; }
 
 /* Scroll-to-top */
-.scroll-top { position:fixed; right:22px; bottom:22px; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02)); border:1px solid rgba(255,255,255,0.06); box-shadow:0 8px 22px rgba(0,0,0,0.6); backdrop-filter:blur(6px); cursor:pointer; opacity:0; transform:translateY(10px) scale(.98); transition:opacity .35s, transform .35s, box-shadow .35s; z-index:999; }
+.scroll-top { position:fixed; right:22px; bottom:22px; width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02)); color:#fff; opacity:0; transform:translateY(12px) scale(.95); transition:opacity .28s ease, transform .28s ease; border:1px solid rgba(255,255,255,0.04); }
 .scroll-top.active { opacity:1; transform:translateY(0) scale(1); box-shadow:0 18px 48px rgba(0,0,0,0.75),0 0 36px 6px var(--accent-glow); }
 .scroll-top:hover { transform:translateY(-3px) scale(1.03); }
 .arrow { width:18px; height:18px; border-left:2.6px solid #fff; border-bottom:2.6px solid #fff; transform:rotate(45deg); }
@@ -163,6 +166,27 @@ body::before {
   </section>
 </main>
 
+<!-- noscript fallback so images show when JS is off -->
+<noscript>
+  <style>
+    .card img { opacity:1 !important; transform:none !important; }
+  </style>
+  <main class="container">
+    <section class="image-grid" aria-hidden="false">
+      <figure class="card"><img src="https://i.postimg.cc/Vs71YdVV/IMG_7226.jpg" alt="Jacob smiling outdoors"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/3rL7Kdc2/IMG_7893.jpg" alt="Jacob in a park"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/5ykMpRCr/IMG_8485.jpg" alt="Jacob at a party"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/3NbH9cGT/IMG_9068.jpg" alt="Jacob with friends"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/T2kGRp4J/IMG_9099.jpg" alt="Jacob at the beach"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/0QPxNmvh/IMG_9212.jpg" alt="Jacob in casual clothes"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/8PrYqcQ7/9CC6D971_C90E_4E46_BCBF_1CF609A9ACB8.jpg" alt="Jacob holding a cup"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/SNzPwRFW/IMG_3259.jpg" alt="Jacob laughing"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/vH6KpTF9/IMG_7034.jpg" alt="Jacob in a casual portrait"></figure>
+      <figure class="card"><img src="https://i.postimg.cc/c48zVCyf/IMG_7153.jpg" alt="Jacob with friends smiling"></figure>
+    </section>
+  </main>
+</noscript>
+
 <footer class="footer">
   <p class="footer-text">A symbol of my love</p>
 </footer>
@@ -196,20 +220,27 @@ body::before {
   }, { threshold: 0.2 });
   images.forEach(img => observer.observe(img));
 
-  // Card parallax effect
+  // Card parallax effect — use requestAnimationFrame for smoother updates
   const cards = document.querySelectorAll('.card');
-  window.addEventListener('scroll', () => {
+  let ticking = false;
+  function updateParallax(){
     const scrollTop = window.scrollY;
     cards.forEach(card => {
       const offset = card.offsetTop;
       const distance = offset - scrollTop;
       card.style.transform = `translateY(${distance * 0.03}px)`; // subtle parallax
     });
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
   });
+
 })();
 </script>
 
 </body>
 </html>
-
-
